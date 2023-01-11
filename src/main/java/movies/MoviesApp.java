@@ -1,7 +1,7 @@
 package movies;
 
 
-import java.awt.*;
+import movies.controller.WindowController;
 
 //Single responsibility - pojedyncza odpowiedzialność
 //Open-closed - kod powinien być otwarty na rozszerzanie i
