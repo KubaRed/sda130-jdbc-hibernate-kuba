@@ -1,28 +1,51 @@
 package movies;
 
 
+import movies.controller.ConsoleController;
+import movies.controller.Controller;
 import movies.controller.WindowController;
 
-//Single responsibility - pojedyncza odpowiedzialność
-//Open-closed - kod powinien być otwarty na rozszerzanie i
-// zamknięty na modyfikacje
-//rozruch
+import java.util.Arrays;
+
 public class MoviesApp {
+
+    private static final String CONSOLE_MODE = "console";
+    private static final String GUI_MODE = "gui";
+    private static final String DEFAULT_MODE = GUI_MODE;
+
     public static void main(String[] args) {
-      //Menu.startMenu(); - tak gdyby metoda była statyczna
-//        ConsoleController consoleController = new ConsoleController();
-//        consoleController.startMenu();
 
-        WindowController windowController = new WindowController();
-        windowController.startMenu();
+        String mode = DEFAULT_MODE;
+        if(args.length != 0){
+            mode = args[0];
+        }
+        executeProgram(mode);
 
+//        Controller controller;
+//        switch (args[0]) {
+//            case "console":
+//                controller = new ConsoleController();
+//                controller.startMenu();
+//                break;
+//            case "gui":
+//                controller = new WindowController();
+//                controller.startMenu();
+//                break;
+//        }
+//        System.out.println(Arrays.toString(args));
+    }
+
+    public static void executeProgram(String mode) {
+        Controller controller;
+        if (mode.equalsIgnoreCase(CONSOLE_MODE)) {
+            controller = new ConsoleController();
+        } else if (mode.equalsIgnoreCase(GUI_MODE)) {
+            controller = new WindowController();
+        } else {
+            executeProgram(DEFAULT_MODE);
+            return;
+        }
+        controller.startMenu();
     }
 }
 
-
-//Część 2:
-//Dodaj nową bazę danych
-//Przygotuj odpowiedni sterownik i uzyskaj obiekt Connection
-//Dodaj przez Javę odpowiednią tabelę do bazy danych (możesz wykorzystać klauzulę  “if not exists” aby nie dodawała się za każdym razem
-//Zaktualizuj sposób zapisu filmu aby był dodawany do tabeli
-//Zaktualizuj sposób wyświetlania filmów aby były wyświetlane z bazy danych
