@@ -10,7 +10,7 @@ public class MovieService {
     private Connection connection;
     private static final String DB_URL = "jdbc:mysql://localhost:3306/movies";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "MyPassword123";
+    private static final String PASSWORD = "jakubowy22";
     private static final String CREATE_MOVIES_TABLE_SQL = """
             CREATE TABLE IF NOT EXISTS movies (
             id int AUTO_INCREMENT PRIMARY KEY,

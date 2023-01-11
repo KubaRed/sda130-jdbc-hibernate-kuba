@@ -1,13 +1,22 @@
 package movies;
 
+import javax.swing.*;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
-//pozwala na interakcję z aplikacją (wprowadzanie danych, prezentacja rezultatów)
-public class Controller {
+public class WindowController {
     private boolean running = true;
-   private MovieService movieService = new MovieService();  //tylko jeden service na kontroler!
+    private String title;
+    private int premiereYear;
+    private String genre;
+    private int rate;
+    private int option;
+    private MovieService movieService= new MovieService();
+
+    public WindowController(){
+
+    }
 
     public void startMenu() {
         do {
@@ -16,22 +25,17 @@ public class Controller {
     }
 
     private void menuAction() {
-        showOptions();
-        int input = readDecision();
-        handleOption(input);
+        handleOption(getOptionFromAvailable());
     }
 
-    private void showOptions() {
-        System.out.println("""
+
+
+    private int getOptionFromAvailable() {
+        return option = Integer.parseInt(JOptionPane.showInputDialog("""
                 Wybierz jedną z opcji:
                 1. Dodaj nowy film
                 2. Wyświetl filmy
-                3. Koniec""");
-    }
-
-    private int readDecision() {
-        Scanner scanner = new Scanner(System.in);
-        return scanner.nextInt();
+                3. Koniec"""));
     }
 
     private void handleOption(int input) {
@@ -49,8 +53,10 @@ public class Controller {
                 movieService.save(movie);
                 break;
             case 2:
-               List<Movie> movies = movieService.findAllMovies();
-               showMovies(movies);
+                List<Movie> movies = movieService.findAllMovies();
+                JOptionPane.showMessageDialog(null, movies);
+
+                showMovies(movies);
                 break;
             case 3:
                 end();
@@ -58,23 +64,19 @@ public class Controller {
         }
     }
 
+
     private Movie readMovieData() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Podaj tytuł:");
-        String title = scanner.nextLine();
-        System.out.print("Podaj rok premiery:");
-        int premiereYear = scanner.nextInt();
+        this.title = JOptionPane.showInputDialog("Podaj tytuł filmu: ");
+        this.premiereYear = Integer.parseInt(JOptionPane.showInputDialog("Podaj rok premiery: "));
         if (premiereYear < 1800 || premiereYear > 2100) {
+            JOptionPane.showMessageDialog(null, "Podano nierealną datę premiery.\n" +
+                    "Powinien być przedział: 1800 - 2100");
             System.out.println("Podano nierealną datę premiery. " +
                     "Powinien być przedział: 1800 - 2100");
             return readMovieData();
         }
-//        scanner = new Scanner(System.in);
-        scanner.nextLine();
-        System.out.print("Podaj gatunek:");
-        String genre = scanner.nextLine();
-        System.out.print("Podaj ocenę (1-5):");
-        int rate = scanner.nextInt();
+        this.genre = JOptionPane.showInputDialog("Podaj gatunek: ");
+        this.rate = Integer.parseInt(JOptionPane.showInputDialog("Ocena: "));
         return new Movie(title, premiereYear, genre, rate);
     }
 

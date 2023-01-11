@@ -1,6 +1,8 @@
 package movies;
 
 
+import java.awt.*;
+
 //Single responsibility - pojedyncza odpowiedzialność
 //Open-closed - kod powinien być otwarty na rozszerzanie i
 // zamknięty na modyfikacje
@@ -8,8 +10,12 @@ package movies;
 public class MoviesApp {
     public static void main(String[] args) {
       //Menu.startMenu(); - tak gdyby metoda była statyczna
-        Controller controller = new Controller();
-        controller.startMenu();
+//        ConsoleController consoleController = new ConsoleController();
+//        consoleController.startMenu();
+
+        WindowController windowController = new WindowController();
+        windowController.startMenu();
+
     }
 }
 

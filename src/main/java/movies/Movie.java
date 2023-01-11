@@ -46,6 +46,6 @@ public class Movie {
                 ", premiereYear=" + premiereYear +
                 ", genre='" + genre + '\'' +
                 ", rate=" + rate +
-                '}';
+                "}\n";
     }
 }
