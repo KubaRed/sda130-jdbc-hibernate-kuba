@@ -1,10 +1,20 @@
 package jdbc;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "books") // poprawa nazwy tabeli
+                        // inaczej uzywa nazwy Book jak klasa
 public class Book {
+    @Id
+    //@GeneratedValue
     private int id;
+    @Column(name = "title") // mozna dodac jak sa inne nazwy w bazie
     private String title;
     private String author;
     private  int pages;
+
+    public Book(){} // Wymagany przez hibernate;
 
     public Book( String title, String author, int pages) {
         this.title = title;
@@ -39,5 +49,9 @@ public class Book {
                 ", author='" + author + '\'' +
                 ", pages=" + pages +
                 '}';
+    }
+
+    public void setPages(int i) {
+        pages = i;
     }
 }
